@@ -47,6 +47,7 @@ export default {
   },
   data () {
     return {
+      obj: {},
       list: [],
       arrList: [],
       state: '1',
@@ -69,6 +70,9 @@ export default {
     }
   },
   created() {
+    this.obj ={age: '18'}
+    this.obj.name = 'lisi'
+    console.log(this.obj, "obj")
     this.getList()
   },
   mounted() {

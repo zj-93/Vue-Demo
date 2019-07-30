@@ -65,7 +65,7 @@ export default {
         }
     },
     created() {
-
+        this.get_ip()
     },
     mounted() {
         // const arrList = JSON.parse(this.$route.query.info)
@@ -83,6 +83,15 @@ export default {
 
     },
     methods: {
+        get_ip() {
+            let $cip ="unkonown";
+            if($_SERVER['REMOTE_ADDR']) {
+                $cip = $_SERVER['REMOTE_ADDR']
+            } else if(getenv('REMOTE_ADDR')) {
+                $cip = getenv['REMOTE_ADDR']
+            }
+            return $cip
+        },
         WXPay() {
             this.$message({
                 message: '支付成功',

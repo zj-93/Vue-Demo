@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-      <div class="viewList" v-for="(item, index) in list" :key="index" @click="jumpDetail(item.id)">
+      <div class="viewList" v-for="(item, index) in list" :key="index">
         <span class="imgArea">
           <img :src="item.img" alt="">
         </span>
@@ -28,10 +28,10 @@
             <div class="totalNum">
               <div class="payMoney">￥{{ totalMoney }}</div> 
               <div v-if="shipNum == 0" class="payDesc">免运费</div>
-              <div v-else  class="payDesc">另需配送费￥{{shipNum}}</div>
+              <div v-else  class="payDesc">{{payFlag}}起送,另需配送费￥{{shipNum}}</div>
             </div>
         </div>
-        <div class="pay" @click="gotoPay">去结算</div>
+        <button class="pay" :disabled="!isA" :class="{disPay: !isA}" @click="gotoPay">去结算</button>
       </div>
   </div>
 </template>
@@ -47,7 +47,9 @@ export default {
   },
   data () {
     return {
-      obj: {},
+      isA: false,
+      payFlag: 100,
+      obj: null,
       list: [],
       arrList: [],
       state: '1',
@@ -67,6 +69,13 @@ export default {
     scrollState(){
       console.log(this.scrollState)
       this.state = this.scrollState
+    },
+    totalMoney(val) {
+      if(val > this.payFlag) {
+        this.isA = true
+      } else {
+        this.isA = false
+      }
     }
   },
   created() {
@@ -79,11 +88,11 @@ export default {
     console.log(this.$store.state.common.totalMoney,)
     if(this.$route.query.info) {
       this.arrList = JSON.parse(this.$route.query.info)
+    } else {
+      this.$store.dispatch('changePayList', [])
+      this.$store.dispatch('changePayListArr', [])
+      this.$store.dispatch('changeTotalMoney', 0)
     }
-    // this.arrList = JSON.parse(this.$route.query.info)
-    setTimeout(() => {
-      console.log(this.contentList, 'mounted')
-    },300)
   },
   methods: {
     addCount(val, id, num) {
@@ -134,9 +143,6 @@ export default {
         });
       }
     },
-    jumpDetail(id) {
-      this.$router.push({name: 'detail', params: {id: id}})
-    },
     getList(){
       getFoodList().then((respone) => {
         this.list = respone
@@ -171,10 +177,11 @@ export default {
 }
 }
 }
+.disPay {background-color: #ccc!important; }
 .footer {text-align:center;margin:20px 0;color:#ccc;margin-bottom: 110px;}
 }
 .goPay{ position: fixed;bottom: 5px;left: 5%;display: inline-block;width: 90%;height: 100px; background-color: white;box-shadow: 0 10px 10px #ccc; 
-  .pay{ width: 100px;height: 100%;line-height: 100px;float: right;background-color: #ff6913;text-align: center; color: #fff;padding: 0 20px;}
+  .pay{ width: 150px;height: 100%;line-height: 100px;float: right;background-color: #ff6913;text-align: center; color: #fff;padding: 0 20px;outline: none;border: none;}
   .numDesc{ float: left;}
   .totalNum{ font-size: 40px;float: left;margin-left: 20px}
   .shopping-cart{ float: left; width: 90px;height: 90px;margin-top: 5px;margin-left: 5px;background-image: url("/static/image/foodList/shopping.png");background-size: 100% 100%;};

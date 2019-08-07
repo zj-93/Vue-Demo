@@ -85,13 +85,22 @@ export default {
     this.getList()
   },
   mounted() {
-    console.log(this.$store.state.common.totalMoney,)
+    console.log(this.$store.state.common.totalMoney)
+    debugger
     if(this.$route.query.info) {
       this.arrList = JSON.parse(this.$route.query.info)
+      if(this.totalMoney >= this.payFlag) {
+        this.isA = true
+      } else {
+        this.isA = false
+      }
     } else {
-      this.$store.dispatch('changePayList', [])
-      this.$store.dispatch('changePayListArr', [])
-      this.$store.dispatch('changeTotalMoney', 0)
+      this.payList = []
+      this.payListArr = []
+      this.totalMoney = 0
+      // this.$store.dispatch('changePayList', [])
+      // this.$store.dispatch('changePayListArr', [])
+      // this.$store.dispatch('changeTotalMoney', 0)
     }
   },
   methods: {

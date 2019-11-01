@@ -53,6 +53,34 @@ router.all('/articleList', function (req, res) {
   
 })
 
+// 获取所有文章
+router.all('/foodList', function (req, res) {
+  //前端的post一共有两种传参方式，
+  //一种是body传参，后端通过req.body去拿参数
+  //另一种是options传参，后端通过req.query去拿参数
+  //正常是：get使用req.query去拿前端传参，post使用req.body
+  _connent(function(err, db) {
+    const adminDb = db.db(dbName)
+    adminDb.collection('food').find({}).toArray(function(err, data) {
+      console.log(data)
+      if (err) {
+        console.error(err, '1111111111111111')
+        return
+      }
+      let resData = {
+        "code": "200",
+        "msg": "查询成功",
+        "data": data
+      };
+      res.json(
+        resData
+      )
+      db.close()
+    })
+  })
+  
+})
+
 
 
 module.exports = router

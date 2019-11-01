@@ -86,7 +86,6 @@ export default {
   },
   mounted() {
     console.log(this.$store.state.common.totalMoney)
-    debugger
     if(this.$route.query.info) {
       this.arrList = JSON.parse(this.$route.query.info)
       if(this.totalMoney >= this.payFlag) {
@@ -154,7 +153,7 @@ export default {
     },
     getList(){
       getFoodList().then((respone) => {
-        this.list = respone
+        this.list = respone.data
         this.state = 2
         this.list.forEach((ele) => {
           this.arrList.forEach((item) => {

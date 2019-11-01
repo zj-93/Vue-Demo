@@ -53,7 +53,7 @@ export default {
   mounted() {
     getTravelListDetail().then((res) => {
     // this.$http('//172.16.80.50:3000/api/articleList').then((res) => {
-      this.list = res.data.data
+      this.list = res.data
       console.log(res)
     })
   },

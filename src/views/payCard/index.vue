@@ -77,6 +77,7 @@ export default {
         // this.getList(dataArr)
         this.arrList = JSON.parse(this.$route.query.info)
         this.getList(this.arrList)
+        console.log(this.arrList)
     },
     watch: {
 
@@ -106,7 +107,6 @@ export default {
                 this.backTip =  a + '秒后返回首页'
                 if(a == 1 ){
                     setTimeout(() => {
-                        
                         this.$store.dispatch('changePayList', [])
                         this.$store.dispatch('changePayListArr', [])
                         this.$store.dispatch('changeTotalMoney', 0)
@@ -119,7 +119,6 @@ export default {
             }, 1000)
         },
         getList(arrList){
-            console.log(arrList)
             let dataArr = []
             arrList.forEach(element => {
                 let ee = Object.keys(element)[0]
@@ -130,20 +129,23 @@ export default {
               code: dataArr
             }
             getFoodList(data).then((respone) => {
-                console.log(respone)
-                this.list = respone
+                let list = respone.data
+                let arr = []
                 this.price = 0
-                this.list.forEach((ele) => {
-                    arrList.forEach((item) => {
-                        if(ele.id == Object.keys(item)[0]) {
-                            const num = item[ele.id].num
-                            ele.num = num
-                            this.price += num * ele.price
+                arrList.forEach((ele) => {
+                    list.forEach((item) => {
+                        if(item.id == Object.keys(ele)[0]) {
+                            const num = ele[item.id].num
+                            item.num = num
+                            arr.push(item)
+                            this.price += num * item.price
                         }
                         
                     })
+                    // this.list.find(item => item = ele.id)
+                    this.list = arr
                 })
-
+                this.list = arr
             }).catch(error => {
                 console.log(error)
             })

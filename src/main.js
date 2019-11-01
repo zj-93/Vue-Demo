@@ -17,7 +17,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
-require('./axios/mock.js')
+// require('./axios/mock.js')
 
 Vue.use(ElementUI)
 Vue.component('icon', Icon)

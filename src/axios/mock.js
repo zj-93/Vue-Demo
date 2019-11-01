@@ -42,20 +42,20 @@ var list = [{
     "variety": "自由行"
 }]
 
-Mock.mock('/food/getFoodList', 'post', 
-    function(parmas) {
-        console.log(parmas, '----------------')
-        if(parmas.body) {
-            const jsonPase = JSON.parse(parmas.body)
-            const jsoncode = jsonPase.code
-            let jsondata = []
-            console.log(jsoncode)
-            jsoncode.forEach(element => {
-                jsondata.push(list.find((ele) => ele.id == element))
-            });
-            return jsondata
-        } else {
-            return list
-        }
-    }
-) // 根据数据模板生成模拟数据
+// Mock.mock('/food/getFoodList', 'post', 
+//     function(parmas) {
+//         console.log(parmas, '----------------')
+//         if(parmas.body) {
+//             const jsonPase = JSON.parse(parmas.body)
+//             const jsoncode = jsonPase.code
+//             let jsondata = []
+//             console.log(jsoncode)
+//             jsoncode.forEach(element => {
+//                 jsondata.push(list.find((ele) => ele.id == element))
+//             });
+//             return jsondata
+//         } else {
+//             return list
+//         }
+//     }
+// ) // 根据数据模板生成模拟数据

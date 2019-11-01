@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>起始页</title>
+</head>
+
+<style>
+  .fromData{
+    display: block;
+    width: 500px;
+    margin: auto;
+    text-align: center;
+  }
+  .name, .password{
+    display: inline-block;
+    width: 100px;
+    margin-top: 30px;
+    margin-right: 20px;
+    text-align: right;
+  }
+  .btn{
+    margin-left: 100px;
+    margin-top: 20px;
+  }
+</style>
+<body> 
+  <form class="fromData" action="/upload">
+    <div><label for=""><span class="name">用户名:</span><input type="text"></label></div>
+    <div><label for=""><span class="password">密 码:</span><input type="password"></label></div>
+    <div id="svg"></div>
+    <input class="btn" type="button" value="跳转" onclick="jump()">
+  </form>
+  
+</body>
+</html>
+<script>
+  function jump() {
+    window.open("http://127.0.0.1:8888/upload" , target="_top")
+  }
+</script>

@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import list from "@/views/json/list.json"
-import { setTimeout } from 'timers';
+import { getTravelListDetail } from '@/axios/food.js';
 export default {
   props: {
     contentList: {
@@ -50,12 +49,13 @@ export default {
     }
   },
   created() {
-    this.list = list
   },
   mounted() {
-    setTimeout(() => {
-      console.log(this.contentList, 'mounted')
-    },300)
+    getTravelListDetail().then((res) => {
+    // this.$http('//172.16.80.50:3000/api/articleList').then((res) => {
+      this.list = res.data.data
+      console.log(res)
+    })
   },
   methods: {
     jumpDetail(id) {

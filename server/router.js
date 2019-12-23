@@ -6,6 +6,28 @@ var dbName = 'lvProduct'
 
 const _connent = require('./dbConnent')
 
+<<<<<<< HEAD
+=======
+//封装成为内部函数
+function _connent(callback) {
+  var url = 'mongodb://127.0.0.1:27017/lvProduct';
+  // test
+
+  //connect(url, user, password)
+
+
+  // var url='mongodb://60.205.209.210:27017/test';
+
+  //连接数据库
+  MongoClient.connect(url, function (err, db) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    callback(err, db);
+  });
+}
+>>>>>>> 8d0e56fb20f4a842993c19cd0f7fa8d2e65ba2e7
 
 
 // 获取所有旅游项目

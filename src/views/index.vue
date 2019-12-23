@@ -11,10 +11,10 @@
     <router-view />
     <el-dialog title="注册" :visible.sync="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="用户名" :label-width="formLabelWidth">
+        <el-form-item label="用户名">
           <el-input v-model="form.userName" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="密码" :label-width="formLabelWidth">
+        <el-form-item label="密码">
           <el-input v-model="form.passWord" autocomplete="off" show-password></el-input>
         </el-form-item>
       </el-form>

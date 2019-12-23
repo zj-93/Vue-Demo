@@ -5,13 +5,19 @@ const bodyParse = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const router = require('./router')
+const router2 = require('./register')
 const app = express()
+
+var debug = require('debug')('my-application');
 
 const resolve = file => path.resolve(__dirname, file)
 
 app.use('/dist', express.static(resolve('./dist')))
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }))
+
+app.use('/api', router)
+app.use('/api', router2)
 
 // session
 app.set('trust proxy', 1) // trust first proxy
@@ -56,16 +62,15 @@ app.all('*', function(req, res, next) {
 });
 
 //默认首页路由
-app.get('/', function (req, res,next) {
-  fs.readFile('./dist/index.html',function(err,data){
+app.get('/travel', function (req, res,next) {
+  console.log(2222222222222222)
+  fs.readFile('./json/list.json',function(err,data){
       res.writeHead(200,{"Content-type":"text/html;charset=UTF-8"})
       res.end(data);
   })
-    
 });
 
 
-app.use('/api', router)
 
 let server = app.listen(3000, function () {
   console.log('访问地址为 localhost:3000')
@@ -73,5 +78,6 @@ let server = app.listen(3000, function () {
   var port = server.address().port
 
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
+  debug('Express server listening on port ' + server.address().port);
 
 })

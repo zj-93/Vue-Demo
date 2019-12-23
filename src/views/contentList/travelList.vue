@@ -21,14 +21,8 @@
 </template>
 
 <script>
-import { getTravelListDetail } from '@/axios/food.js';
+import { getTravelList } from '@/axios/food.js';
 export default {
-  props: {
-    contentList: {
-      type: Array,
-      default: ()=> []
-    }
-  },
   data () {
     return {
       list: []
@@ -40,26 +34,28 @@ export default {
     }
   },
   watch: {
-    contentList(val) {
-      if(val.length>0){
-        this.list = val
-      }
-      console.log(val)
-      console.log(this.list)
-    }
+    // contentList(val) {
+    //   if(val.length>0){
+    //     this.list = val
+    //   }
+    // }
   },
   created() {
   },
   mounted() {
-    getTravelListDetail().then((res) => {
-    // this.$http('//172.16.80.50:3000/api/articleList').then((res) => {
-      this.list = res.data
-      console.log(res)
-    })
+    this.getList()
   },
   methods: {
+    getList() {
+      getTravelList().then((res) => {
+      if(res.code == 200) {
+        this.list=res.data
+      }
+    })
+    },
     jumpDetail(id) {
-      this.$router.push({name: 'detail', params: {id: id}})
+      console.log(id)
+      this.$router.push({path: 'detail', query: {id: id}})
     }
   }
 }
@@ -77,7 +73,6 @@ export default {
       position: relative;
       .imgArea{
         float: left;
-        display: inline-block;
         width: 280px;
         margin-right: 20px;
         img{
@@ -134,7 +129,6 @@ export default {
           }
         }
         .product_price{
-          display: inline-block;
           float: right;
           .price{
             .num{

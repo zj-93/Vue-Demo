@@ -9,18 +9,26 @@ export function getFoodList(data) {
     })
 }
 
-export function getFoodListDetail(data) {
+// export function getFoodListDetail(data) {
+//     return request({
+//         url: '/api/foodList',
+//         method: 'post',
+//         data
+//     })
+// }
+
+export function getTravelList(data) {
     return request({
-        url: '/api/foodList',
+        url: '/api/articleList',
         method: 'post',
         data
     })
 }
 
-export function getTravelListDetail(data) {
+export function getTravelDeatil(params) {
     return request({
-        url: '/api/articleList',
-        method: 'post',
-        data
+        url: '/api/getTravelDetail',
+        method: 'get',
+        params
     })
 }

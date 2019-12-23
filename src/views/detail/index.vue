@@ -1,109 +1,88 @@
 <template>
   <div class="detail">
     <header>
-      <div class="backBoder" @click="goBack">
-        <i class="el-icon-back"/>
+      <div class="backBoder"
+           @click="goBack">
+        <i class="el-icon-back" />
       </div>
     </header>
-    <banner-img />
-    <table cellpadding="0" cellspacing="0">
-      <tr>
-        <th>name</th>
-        <th>code</th>
-        <th>grand</th>
-      </tr>
-      <tr v-for="(item, index) in tableList" :key="index">
-        <td :id="item.colspanNum" :rowspan="item.colspanNum" v-show="item.disPlay">{{ item.name }}</td>
-        <td>{{ item.code }}</td>
-        <td>{{ item.grand }}</td>
-      </tr>
-    </table>
+    <div class="imgClass">
+      <el-carousel height="25vh">
+        <el-carousel-item v-for="(item,index) in dataDetail.img"
+                          :key="index">
+          <img :src="item.url"
+               alt="">
+        </el-carousel-item>
+      </el-carousel>
+
+      <div class="nameClass">
+        <span>{{dataDetail.variety}} · {{dataDetail.way}}</span>
+        <span class="numClass">产品编码：{{dataDetail.id}}</span>
+      </div>
+    </div>
+    <div class="priceClass">
+      <span class="numClass">￥{{dataDetail.price}}</span> <i>起</i>
+    </div>
+
+    <div class="">
+
+    </div>
+
+    <el-collapse v-model="activeNames"
+                 @change="handleChange"
+                 accordion>
+      <el-collapse-item title="费用说明"
+                        name="1">
+        <div v-for="(item, index) in dataDetail.desc"
+             :key="index">
+             <div class="subTitle">{{item.subTitle}}</div>
+             <div>{{ item.content }}</div>
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="温馨提示"
+                        name="2">
+        <div>{{ dataDetail.warning }}</div>
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 
 <script>
-import Swiper from 'swiper'
-import bannerImg from '@/views/bannerImg/banner.vue'
-import { getFoodList } from "@/axios/food.js"
-import { throws } from 'assert';
+import { getTravelDeatil } from "@/axios/food.js";
 
 export default {
-  components: {
-    bannerImg
-  },
-  data () {
+  data() {
     return {
-      list: [{
-        name: '123',
-        code: 'abc',
-        grand: 456
-      },{
-        name: '123',
-        code: 'cbd',
-        grand: 456
-      },{
-        name: '123',
-        code: 'afc',
-        grand: 456
-      },{
-        name: '123',
-        code: 'god',
-        grand: 456
-      },{
-        name: '456',
-        code: 123,
-        grand: 456
-      },{
-        name: '456',
-        code: 123,
-        grand: 456
-      },{
-        name: '789',
-        code: 123,
-        grand: 456
-      }],
-      tableList: []
-    }
+      dataDetail: {},
+      activeNames: []
+    };
   },
-  created() {
-      
-  },
+  created() {},
   mounted() {
-    let k = 0
-    let j = 0
-    let l = 1
-    this.listFor(k, j, l)
+    this.id = this.$route.query.id;
+    this.getDetailById();
   },
   methods: {
-      goBack() {
-        history.go(-1)
-      },
-      listFor(k, j, l){
-        if(k < this.list.length) {
-            if(this.list[j].name === this.list[k].name) {
-              this.list[k].colspanNum = 1
-              this.list[k].disPlay = false
-              this.list[j].disPlay = true
-              this.list[j].colspanNum = l
-              k++
-              l++
-              this.listFor(k, j, l)
-            } else {
-              j = k
-              l = 1
-              this.listFor(k, j, l)
-            }
-        } else {
-          this.tableList = this.list
-          return false
-        }
-      }
+    goBack() {
+      history.go(-1);
+    },
+    handleChange(val) {
+      console.log(val);
+    },
+    getDetailById() {
+      let data = {
+        id: this.id
+      };
+      getTravelDeatil(data).then(res => {
+        console.log(res, "res");
+        this.dataDetail = res.data;
+      });
+    }
   }
-}
-
+};
 </script>
 <style lang='less'>
-.backBoder{
+.backBoder {
   padding: 15px;
   border-radius: 100px;
   display: inline-block;
@@ -112,25 +91,58 @@ export default {
   top: 15px;
   left: 15px;
   z-index: 999;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  i{
-    color: #fff
+  i {
+    color: #fff;
   }
 }
-.detail{
-  table{
-    border: 1px solid #ccc;
-    border-bottom: none;
-    border-left: none;
-    margin-left: 40px;
+.imgClass {
+  width: 100%;
+  height: 25vh;
+  position: relative;
+  img {
+    width: 100%;
+    height: 28vh;
   }
-  td, th{
-    width: 200px;
-    height: 30px;
-    border-left: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
+  .nameClass {
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 0;
+    z-index: 999;
+    width: 94%;
+    left: 0;
+    color: #fff;
+    h2 {
+      display: inline-block;
+    }
+    .numClass {
+      float: right;
+    }
   }
+}
+
+.priceClass {
+  margin-top: 25px;
+  padding: 0 20px;
+  .numClass {
+    color: orangered;
+    font-size: 60px;
+    font-weight: bold;
+  }
+}
+.el-collapse-item__header {
+  height: 8vh;
+  padding: 0 20px;
+}
+.el-collapse-item__content {
+  padding: 0 20px;
+}
+.subTitle{
+  margin-top: 20px;
+  font-weight: bolder;
+  font-size: 28px;
 }
 </style>

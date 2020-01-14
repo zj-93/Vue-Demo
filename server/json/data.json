@@ -2,15 +2,17 @@
   {
     "id": "00003",
     "name": "三亚5日自由行(5钻)",
+    "area": "三亚",
+    "way": "高铁",
     "img": [
       {
-        "url": "/static/image/list1.jpg"
+        "url": "/static/image/list2.jpg"
       },
       {
-        "url": "/static/image/list1.jpg"
+        "url": "/static/image/list2.jpg"
       },
       {
-        "url": "/static/image/list1.jpg"
+        "url": "/static/image/list2.jpg"
       }
     ],
     "price": "1088",

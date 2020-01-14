@@ -20,6 +20,10 @@ export default new Router({
       path: '/food',
       name: 'food',
       component: resolve => require(['@/views/contentList/foodList'], resolve)
+    }, {
+      path: '/fruits',
+      name: 'fruits',
+      component: resolve => require(['@/views/contentList/fruitsList'], resolve)
     }]
   }, {
     path: '/detail',

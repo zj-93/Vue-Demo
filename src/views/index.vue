@@ -9,6 +9,7 @@
     <recommended-list />
     <!-- <content-list :scroll-state="scrollState" :content-list="contentList" /> -->
     <router-view />
+    
     <el-dialog title="注册" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="用户名">

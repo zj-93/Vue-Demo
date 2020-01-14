@@ -6,6 +6,8 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const router = require('./router')
 const router2 = require('./register')
+const router3 = require('./importModul')
+
 const app = express()
 
 var debug = require('debug')('my-application');
@@ -16,8 +18,7 @@ app.use('/dist', express.static(resolve('./dist')))
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }))
 
-app.use('/api', router)
-app.use('/api', router2)
+
 
 // session
 app.set('trust proxy', 1) // trust first proxy
@@ -60,6 +61,10 @@ app.all('*', function(req, res, next) {
       next();
   }
 });
+
+app.use('/api', router)
+app.use('/api', router2)
+app.use('/api', router3)
 
 //默认首页路由
 app.get('/travel', function (req, res,next) {

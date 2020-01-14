@@ -9,9 +9,15 @@ const articleSchema = new mongoose.Schema({
   variety: String
 })
 
+const fruitsSchema = new mongoose.Schema({
+  id: String, 
+  path: String, 
+})
+
 
 const Models = {
-  Article: mongoose.model('lvProduct', articleSchema)
+  Article: mongoose.model('lvProduct', articleSchema),
+  fruitsSchema: mongoose.model('imageSet', fruitsSchema)
 }
 
 module.exports = Models

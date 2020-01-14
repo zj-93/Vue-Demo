@@ -5,6 +5,12 @@
            @click="goBack">
         <i class="el-icon-back" />
       </div>
+      <div class="area">
+        {{ dataDetail.area}}
+      </div>
+      <div class="title">
+        产品详情
+      </div>
     </header>
     <div class="imgClass">
       <el-carousel height="25vh">
@@ -82,25 +88,52 @@ export default {
 };
 </script>
 <style lang='less'>
+header{
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: orangered;
+  .title{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50% , 50%);
+    color: #fff;
+    font-size: 32px;
+  }
+  .area{
+    position: absolute;
+    top: 8px;
+    left: 100px;
+    transform: translate(0 , 50%);
+    color: #fff;
+    font-size: 28px;
+  }
+}
 .backBoder {
-  padding: 15px;
+  height: 52px;
+  width: 52px;
+  text-align: center;
   border-radius: 100px;
   display: inline-block;
   border: 1px solid #d6d6d6;
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  z-index: 999;
   background-color: rgba(0, 0, 0, 0.3);
+  margin: 12px;
   cursor: pointer;
   i {
     color: #fff;
+    font-size: 42px;
+    margin-top: 6px;
   }
 }
 .imgClass {
   width: 100%;
   height: 25vh;
   position: relative;
+  margin-top: 80px;
   img {
     width: 100%;
     height: 28vh;
@@ -111,7 +144,7 @@ export default {
     padding: 0 20px;
     position: absolute;
     bottom: 0;
-    z-index: 999;
+    z-index: 9;
     width: 94%;
     left: 0;
     color: #fff;

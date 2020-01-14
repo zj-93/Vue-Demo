@@ -25,7 +25,7 @@ exports.cssLoaders = function (options) {
   const px2remLoader = {
     loader: 'px2rem-loader',
     options: {
-      remUint: 75
+      remUint: 37.5
     }
   }
 

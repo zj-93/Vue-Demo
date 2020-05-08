@@ -6,7 +6,7 @@
     </div>
 
     <el-upload class="avatar-uploader"
-               action="http://172.16.80.36:3000/api/import"
+               action="http://172.16.80.46:3000/api/import"
                :show-file-list="false"
                :on-success="handleAvatarSuccess"
                :before-upload="beforeAvatarUpload">
@@ -16,6 +16,8 @@
       <i v-else
          class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
+
+    <input ref="camera" class="js_upFile cover1" type="file" name="cover" accept="image/*" capture="camera" multiple/>
   </div>
 </template>
 
@@ -39,6 +41,14 @@ export default {
   mounted() {
     this.getImgList()
     this.init()
+
+    //获取浏览器的userAgent,并转化为小写
+    var ua = navigator.userAgent.toLowerCase();
+    //判断是否是苹果手机，是则是true
+    var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+    if (isIos) {
+        this.$refs.camera.removeAttr("capture");
+    };
   },
   methods: {
     handleAvatarSuccess(res, file) {
@@ -54,7 +64,6 @@ export default {
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }

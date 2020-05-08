@@ -163,7 +163,7 @@ export default {
     background-color: #fff;
     padding: 0 10%;
     box-sizing: border-box;
-    .title{ position: fixed; top: 0;left: 0;z-index: 9;width: 100%;height: 120px;line-height: 120px;text-align: center; font-size: 30px;font-weight: bold;background-color: coral;color: #fff;}
+    .title{ position: fixed; top: 0;left: 0;z-index: 9;width: 100%;height: 80px;line-height: 80px;text-align: center; font-size: 30px;font-weight: bold;background-color: #FFA743;color: #fff;}
     .shopList{ margin-top: 150px; }
     li{
         width: 100%;
@@ -185,7 +185,7 @@ export default {
         display: inline-block;
         border: 1px solid #d6d6d6;
         position: fixed;
-        top: 25px;
+        top: 10px;
         left: 15px;
         z-index: 999;
         background-color: rgba(0,0,0,0.3);

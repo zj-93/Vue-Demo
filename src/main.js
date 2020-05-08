@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import axios from 'axios'
+import Ajax from 'axios'
 import store from "@/store"
 
 import ElementUI from 'element-ui'
@@ -14,8 +14,13 @@ import Icon from 'vue-svg-icon/Icon.vue'
 import 'swiper/dist/css/swiper.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import cookie from '@/until/setCookie'
+
 Vue.config.productionTip = false
-Vue.prototype.$http = axios
+Vue.prototype.$Ajax = Ajax
+
+Vue.prototype.$cookie = cookie
+
 
 // require('./axios/mock.js')
 

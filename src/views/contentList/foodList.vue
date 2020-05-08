@@ -189,7 +189,7 @@ export default {
 .footer {text-align:center;margin:20px 0;color:#ccc;margin-bottom: 110px;}
 }
 .goPay{ position: fixed;bottom: 5px;left: 5%;display: inline-block;width: 90%;height: 100px; background-color: white;box-shadow: 0 10px 10px #ccc; 
-  .pay{ width: 150px;height: 100%;line-height: 100px;float: right;background-color: #ff6913;text-align: center; color: #fff;padding: 0 20px;outline: none;border: none;}
+  .pay{ width: 150px;height: 100%;line-height: 100px;float: right;background-color: #FFA743;text-align: center; color: #fff;padding: 0 20px;outline: none;border: none;}
   .numDesc{ float: left;}
   .totalNum{ font-size: 40px;float: left;margin-left: 20px}
   .shopping-cart{ float: left; width: 90px;height: 90px;margin-top: 5px;margin-left: 5px;background-image: url("/static/image/foodList/shopping.png");background-size: 100% 100%;};

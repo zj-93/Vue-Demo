@@ -17,6 +17,15 @@
       </div>
       <div class="footer" v-if="scrollState=='1'">加载中...</div>
       <div class="footer" v-if="scrollState=='2'">我也是有底线的</div>
+
+          <el-date-picker
+      v-model="value"
+      type="daterange"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      :picker-options="pickerOptions"
+      />
+
   </div>
 </template>
 
@@ -25,7 +34,14 @@ import { getTravelList } from '@/axios/food.js';
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > (Date.now() - 86400000)
+        }
+      },
+      value: ''
     };
   },
   computed: {

@@ -20,6 +20,7 @@ router.all('/import', upload.single('file'), function (req, res) {
   let ret = {};
   ret['code'] = 200;
   var file = req.file;
+  console.log(req.file)
   if (file) {
     var fileNameArr = file.originalname.split('.');
     var suffix = fileNameArr[fileNameArr.length - 1];
@@ -53,6 +54,16 @@ router.all('/getImgList', function (req, res) {
         resData['msg'] = '查询失败'
         resData['data'] = []
       } else {
+        data.forEach(ele => {
+          const read = fs.createReadStream(ele.path, {encoding: 'base64'})
+          read.on('data',dataStream =>{//监听读取的数据，如果打印data就是文件的内容
+            ele.fileUrl = "data:image/png;base64," + dataStream
+            console.log(ele, '正在读');
+          })
+          read.on('end', (dataStreamEnd) => { //监听状态
+            console.log(dataStreamEnd, '文件读取结束');
+          })
+        })
         resData['code'] = '200'
         resData['msg'] = '查询成功'
         resData['data'] = data

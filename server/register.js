@@ -1,18 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const _connent = require('./dbConnent')
-var dbName = 'lvProduct'
+// var dbName = 'lvProduct'
 
 // 注册账号
 router.all('/signUp', function (req, res) {
   console.log(1111111111)
-  _connent(function (err, db) {
-    const adminDb = db.db(dbName)
+  _connent(function (err, db, adminDb) {
+    // const adminDb = db.db(dbName)
     let resData = {}
     adminDb.collection('users', function (err, collection) {
       collection.insertOne({
         userName: req.body.userName,
-        passWord: req.body.passWord,
+        passWord: req.body.passWord
       }, function (err, result) {
         if (err) {
           resData = {
@@ -35,15 +35,13 @@ router.all('/signUp', function (req, res) {
 
 // 账号登陆
 router.all('/signIn', function (req, res) {
-  _connent(function (err, db) {
-    const adminDb = db.db(dbName)
+  _connent(function (err, db, adminDb) {
+    // const adminDb = db.db(dbName)
     const userName = req.body.userName
     const passWord = req.body.passWord
-    console.log(userName,passWord )
     let resData = {}
     
     adminDb.collection('users').find({ 'userName': userName }).toArray(function (err, data) {
-      console.log(data)
       if (data.length == 0) {
         resData = {
           "code": "0",
@@ -54,7 +52,7 @@ router.all('/signIn', function (req, res) {
         )
         return
       }
-      adminDb.collection('users').find({'passWord': passWord}).toArray(function (err, data) {
+      adminDb.collection('users').find({'userName': userName, 'passWord': passWord}).toArray(function (err, data) {
         if (data.length == 0) {
           resData = {
             "code": "0",
@@ -67,13 +65,33 @@ router.all('/signIn', function (req, res) {
         }
         resData = {
           "code": "200",
-          "msg": "登陆成功"
+          "msg": "登陆成功",
+          "data" : {
+            userName: data[0].userName
+          }
         };
         res.json(
           resData
         )
         db.close()
       })
+    })
+  })
+})
+
+router.all('/getUserInfo', function(req, res) {
+  _connent(function (err, db , adminDb) { 
+    const userName = req.query.userName
+    adminDb.collection('userInfo').find({userName: userName}).toArray(function(err, data) {
+      resData = {
+        "code": "200",
+        "msg": "查询成功",
+        "data" : data[0]
+      };
+      res.json(
+        resData
+      )
+      db.close()
     })
   })
 })

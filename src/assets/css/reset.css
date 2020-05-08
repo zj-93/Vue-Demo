@@ -5,3 +5,7 @@ ul {
 i {
     font-style: normal;
 }
+
+.el-input__inner {
+    font-size: 24px;
+}

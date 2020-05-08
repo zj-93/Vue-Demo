@@ -30,6 +30,18 @@ export default new Router({
     name: 'detail',
     component: resolve => require(['@/views/detail'], resolve)
   }, {
+    path: '/person',
+    name: 'person',
+    component: resolve => require(['@/views/person'], resolve)
+  }, {
+    path: '/signIn',
+    name: 'signIn',
+    component: resolve => require(['@/views/register/signIn'], resolve)
+  }, {
+    path: '/signUp',
+    name: 'signUp',
+    component: resolve => require(['@/views/register/signUp'], resolve)
+  }, {
     path: '/pay',
     name: 'pay',
     component: resolve => require(['@/views/payCard'], resolve)

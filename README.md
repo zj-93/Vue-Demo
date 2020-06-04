@@ -23,6 +23,9 @@ npm run unit
 # run e2e tests
 npm run e2e
 
+# node 启动
+nodemon app
+ 
 # run all tests
 npm test
 
@@ -30,7 +33,5 @@ npm test
 npm install vue-svg-icon --save-dev
 npm install xml-loader
 ```
-# node 启动
- nodemon app
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

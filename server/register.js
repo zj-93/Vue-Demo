@@ -5,9 +5,7 @@ const _connent = require('./dbConnent')
 
 // 注册账号
 router.all('/signUp', function (req, res) {
-  console.log(1111111111)
   _connent(function (err, db, adminDb) {
-    // const adminDb = db.db(dbName)
     let resData = {}
     adminDb.collection('users', function (err, collection) {
       collection.insertOne({

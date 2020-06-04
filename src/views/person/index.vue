@@ -132,7 +132,6 @@ export default {
         getUserInfo({ userName: userName }).then(res => {
           this.signFlag = true;
           this.personInfo = res.data;
-          console.log(res);
         });
       }
     },

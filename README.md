@@ -23,6 +23,9 @@ npm run unit
 # run e2e tests
 npm run e2e
 
+# node 启动
+nodemon app
+ 
 # run all tests
 npm test
 

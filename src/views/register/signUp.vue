@@ -9,13 +9,11 @@
 
     <div class="formData">
       <div class="logo" />
-
       <div class="signForm">
         <el-form :model="form" :rules="formRule">
           <el-form-item label="昵称" prop="nickName">
             <el-input v-model="form.nickName"
-                      autocomplete="off"
-                      show-password></el-input>
+                      autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="用户名"  prop="userName">
             <el-input v-model="form.userName"
@@ -57,19 +55,19 @@ export default {
       },
       formRule: {
           nickName: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请输入昵称', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           userName: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请输入用户名', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           passWord: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请输入密码', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           surePassWord: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { required: true, message: '请再次输入密码', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
         }
@@ -92,8 +90,6 @@ export default {
           this.$router.push({
             path: '/person'
           })
-          const userName = res.data.userName
-          this.$cookie.setCookie('userName', userName, 1)
         } else {
           this.$message.error(res.msg);
         }
@@ -130,11 +126,11 @@ export default {
   }
   .logo {
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 100%;
+    height: 200px;
     background-image: url("/static/image/logo/logo.png");
-    background-position: 0 0;
-    background-size: 100% 100%;
+    background-position: center;
+    background-size: 160px 160px;
     background-repeat: no-repeat;
   }
   .formData {
@@ -170,6 +166,7 @@ export default {
   }
   .footer {
     margin-top: 60px;
+    text-align: center;
     .signBtn {
       display: inline-block;
       border: 1px solid #ccc;

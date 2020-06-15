@@ -5,6 +5,8 @@
       <i class="el-icon-arrow-left"
          @click="goBack"></i>
       <span class="title">个人中心</span>
+      <i class="el-icon-right exitLogin"
+         @click="exitLogin"></i>
     </div>
     <div class="person_base_info"
          v-if="signFlag">
@@ -126,6 +128,9 @@ export default {
         }
       });
     },
+    exitLogin() {
+      this.signFlag = false
+    },
     getUserInfo() {
       const userName = this.$cookie.getCookie("userName");
       if (userName) {
@@ -160,6 +165,12 @@ export default {
 .person {
   background: #f9f9f9;
   height: 100vh;
+  /deep/ .exitLogin{
+    font-size: 64px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
   /deep/ .el-icon-arrow-left {
     font-size: 60px;
     margin-top: 10px;

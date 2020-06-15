@@ -67,8 +67,7 @@ app.use('/api', router2)
 app.use('/api', router3)
 
 //默认首页路由
-app.get('/travel', function (req, res,next) {
-  console.log(2222222222222222)
+app.get('/travel', function (req, res, next) {
   fs.readFile('./json/list.json',function(err,data){
       res.writeHead(200,{"Content-type":"text/html;charset=UTF-8"})
       res.end(data);

@@ -90,6 +90,8 @@ export default {
           this.$router.push({
             path: '/person'
           })
+          const userName = res.data.userName
+          this.$cookie.setCookie('userName', userName )
         } else {
           this.$message.error(res.msg);
         }

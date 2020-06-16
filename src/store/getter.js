@@ -5,5 +5,6 @@ const getters = {
     payListArr: state => state.common.payListArr,
     payList: state => state.common.payList,
     totalMoney: state => state.common.totalMoney,
+    userInfo: state => state.userInfo.userInfo,
   }
   export default getters

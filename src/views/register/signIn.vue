@@ -63,7 +63,7 @@ export default {
             path: '/person'
           })
           const userName = res.data.userName
-          this.$cookie.setCookie('userName', userName, 1)
+          this.$cookie.setCookie('userName', userName )
         } else {
           this.$message.error(res.msg);
         }

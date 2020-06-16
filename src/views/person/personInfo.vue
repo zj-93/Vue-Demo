@@ -1,24 +1,26 @@
 <!-- 个人信息 -->
 <template>
   <div class='personInfo'>
-    <HeadIndex :headConfig="headConfig" />
+    <HeadIndex :headConfig="headConfig" >
+      <i class="edit" slot="langTitle" @click="editInfo">修改</i>
+    </HeadIndex>
     <div>
       <nut-cell :is-link="true"
                 :show-icon="true">
         <span slot="title">头像</span>
         <nut-avatar bg-icon
-                    slot="desc"
-                    bg-image='/static/image/portrait/1.jpg'></nut-avatar>
+                    slot="desc">
+          <img class="userIcon" :src="info.imgSrc" /></nut-avatar>
       </nut-cell>
       <nut-cell :is-link="true"
                 :show-icon="true">
         <span slot="title">用户名</span>
-        <span slot="icon">adsdadas</span>
+        <span slot="icon">{{ info.userName }}</span>
       </nut-cell>
       <nut-cell :is-link="true"
                 :show-icon="true">
         <span slot="title">昵称</span>
-        <span slot="desc">会飞的牛</span>
+        <span slot="desc">{{ info.nickName }}</span>
       </nut-cell>
 
       <nut-cell :show-icon="true"
@@ -30,6 +32,7 @@
 
       <nut-cell :show-icon="true"
                 :is-link="true"
+                disabled
                 @click-cell="clickBirth">
         <span slot="title">出生日期</span>
         <span slot="desc">{{ info.birthDate }}</span>
@@ -60,9 +63,13 @@ export default {
       headConfig: {
         left: true,
         right: false,
+        Rtext: '修改',
         text: "个人信息"
       },
       info: {
+        imgSrc: '',
+        userName: '',
+        nickName: '',
         sex: "请选择",
         birthDate: '请选择'
       },
@@ -85,13 +92,29 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {},
+  mounted() {
+    this.$store.dispatch('GetUserInfo', true).then(res => {
+      if(res.code == 200) {
+        console.log(res.data)
+        this.info.imgSrc = res.data.imgSrc
+        this.info.userName = res.data.userName
+        this.info.nickName = res.data.nickName
+        this.info.sex = res.data.sex
+        this.info.birthDate = res.data.birthday
+
+      }
+    }, (err) => {
+      console.log(err)
+    })
+  },
   methods: {
+    editInfo() {
+      console.log(111)
+    },
     clickSex() {
       this.isVisible = !this.isVisible;
     },
     chooseItem(itemParams) {
-      console.log(itemParams)
       this.info.sex = itemParams.name;
       this.isVisible = this.isVisible;
     },
@@ -99,7 +122,6 @@ export default {
       this.pickerDialog = !this.pickerDialog;
     },
     setBirth(param) {
-      console.log(param)
       this.info.birthDate = param[3];
       this.pickerDialog = this.pickerDialog;
     },
@@ -108,4 +130,14 @@ export default {
 </script>
 <style lang='less' scoped>
 //@import url(); 引入公共css类
+/deep/ .userIcon{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.edit{
+  position: absolute;
+  right: 20px;
+  top: auto;
+}
 </style>

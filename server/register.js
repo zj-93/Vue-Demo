@@ -4,8 +4,6 @@ const _connent = require('./dbConnent')
 // var dbName = 'lvProduct'
 
 
-
-
 // 注册账号
 router.all('/signUp', function (req, res) {
   _connent(function (err, db, adminDb) {
@@ -25,6 +23,7 @@ router.all('/signUp', function (req, res) {
                 "code": "500",
                 "msg": "用户名已存在"
               };
+              reslove(resData)
             } else {
               adminDb.collection('users').insertOne({
                 userName: req.body.userName,
@@ -35,16 +34,19 @@ router.all('/signUp', function (req, res) {
                     "code": "500",
                     "msg": "注册失败"
                   };
+                  reslove(resData)
                 } else {
                   resData = {
                     "code": "200",
-                    "msg": "注册成功"
+                    "msg": "注册成功",
+                    "data": {
+                      userName: req.body.userName
+                    } 
                   };
+                  reslove(resData)
                 }
-                reslove(resData)
               })
             }
-            reslove(resData)
           }
         })
       } else {
@@ -114,17 +116,28 @@ router.all('/signIn', function (req, res) {
 router.all('/getUserInfo', function (req, res) {
   _connent(function (err, db, adminDb) {
     const userName = req.query.userName
-    adminDb.collection('userInfo').find({ userName: userName }).toArray(function (err, data) {
+    if(userName) {
+      adminDb.collection('userInfo').find({ userName: userName }).toArray(function (err, data) {
+        resData = {
+          "code": "200",
+          "msg": "查询成功",
+          "data": data[0]
+        };
+        res.json(
+          resData
+        )
+      })
+    } else {
       resData = {
-        "code": "200",
-        "msg": "查询成功",
-        "data": data[0]
+        "code": "500",
+        "msg": "未登录",
+        "data": []
+
       };
       res.json(
         resData
       )
-      db.close()
-    })
+    }
   })
 })
 

@@ -1,11 +1,10 @@
 <!--  -->
 <template>
   <div class="head">
-    <i v-if="headConfig.left" class="el-icon-arrow-left"
-       @click="goBack"></i>
+    <i v-if="headConfig.left" class="el-icon-arrow-left" @click="goBack"></i>
     <span class="title">{{ headConfig.text }}</span>
-    <i v-if="headConfig.right" class="el-icon-user-solid personCenter"
-       @click="personCenter"></i>
+    <i v-if="headConfig.right" class="el-icon-user-solid personCenter" @click="personCenter"></i>
+    <slot name="langTitle" />
   </div>
 </template>
 
@@ -19,6 +18,7 @@ export default {
       default: {
         left: true,
         right: false,
+        Rtext: '',
         text: '',
       }
     }
@@ -36,6 +36,9 @@ export default {
   methods: {
     goBack() {
       history.go(-1)
+    },
+    handleClick() {
+
     }
   }
 };

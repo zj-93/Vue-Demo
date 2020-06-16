@@ -100,13 +100,24 @@ export default {
       cameraPic: {}
     };
   },
-  computed: {},
+  computed: {
+  },
   watch: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    this.getUserInfo();
+    // this.getUserInfo();
+    this.$store.dispatch('GetUserInfo', true).then(res => {
+      if(res.code == 200) {
+        this.signFlag = true
+        this.personInfo = res.data
+      } else {
+        this.signFlag = false
+      }
+    }, (err) => {
+      console.log(err)
+    })
   },
   methods: {
     goBack() {
@@ -132,15 +143,6 @@ export default {
       this.$router.push({
         path: "/personCenter"
       });
-    },
-    getUserInfo() {
-      const userName = this.$cookie.getCookie("userName");
-      if (userName) {
-        getUserInfo({ userName: userName }).then(res => {
-          this.signFlag = true;
-          this.personInfo = res.data;
-        });
-      }
     },
     upload_photo() {
       var inputDOM = this.$refs.camera;

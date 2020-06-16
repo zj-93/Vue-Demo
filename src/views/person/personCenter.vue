@@ -10,7 +10,7 @@
                 title="个人信息">
       </nut-cell>
       <div class="exit">
-        <nut-button block>
+        <nut-button block @click.native="exit">
           退出登录
         </nut-button>
       </div>
@@ -41,6 +41,12 @@ export default {
   methods: {
     clickEvnt() {
       console.log(1111111)
+    },
+    exit() {
+      this.$cookie.removeCookie('userName')
+      this.$router.push({
+        path: "/person"
+      });
     }
   }
 };

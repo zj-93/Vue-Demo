@@ -69,35 +69,6 @@ export default {
         path: '/person'
       })
     },
-    // signUp() {
-    //   this.flag = false;
-    //   this.btnName = '注册'
-    //   this.dialogFormVisible = true;
-    // },
-    // signIn() {
-    //   this.dialogFormVisible = true;
-    //   this.btnName = '登录'
-    //   this.flag = true;
-    // },
-    // sure() {
-    //   if (this.flag) {
-    //     signIn(this.form).then(res => {
-    //       if (res.code == 200) {
-    //         this.$message.success(res.msg);
-    //       } else {
-    //         this.$message.error(res.msg);
-    //       }
-    //     });
-    //   } else {
-    //     signUp(this.form).then(res => {
-    //       if (res.code == 200) {
-    //         this.$message.success(res.msg);
-    //       } else {
-    //         this.$message.error(res.msg);
-    //       }
-    //     });
-    //   }
-    // },
     changeMenu(item) {
       const data = {
         menuCode: item

@@ -5,8 +5,8 @@
       <i class="el-icon-arrow-left"
          @click="goBack"></i>
       <span class="title">个人中心</span>
-      <i class="el-icon-right exitLogin"
-         @click="exitLogin"></i>
+      <i class="el-icon-user-solid personCenter"
+         @click="personCenter"></i>
     </div>
     <div class="person_base_info"
          v-if="signFlag">
@@ -128,8 +128,10 @@ export default {
         }
       });
     },
-    exitLogin() {
-      this.signFlag = false
+    personCenter() {
+      this.$router.push({
+        path: "/personCenter"
+      });
     },
     getUserInfo() {
       const userName = this.$cookie.getCookie("userName");
@@ -147,12 +149,6 @@ export default {
       for (let i = 0; i < file.length; i++) {
         formData.append("file", file[0]);
       }
-      console.log(formData.get("file"), "formData");
-
-
-      // importPic({formData: formData }).then(res => {
-      //   console.log(res)
-      // })
       this.$Ajax.post('http://172.16.80.46:3000/api/import', formData).then(res => {
         console.log(res);
       });
@@ -165,11 +161,11 @@ export default {
 .person {
   background: #f9f9f9;
   height: 100vh;
-  /deep/ .exitLogin{
-    font-size: 64px;
+  /deep/ .personCenter{
+    font-size: 60px;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 20px;
+    top: 10px;
   }
   /deep/ .el-icon-arrow-left {
     font-size: 60px;

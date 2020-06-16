@@ -1,6 +1,6 @@
 import router from './router'
 
-const routerPermission = ['401', 'index', 'travel', 'food', 'detail', 'pay', 'fruits', 'person', 'signUp', 'signIn']
+const routerPermission = ['401', 'index', 'travel', 'food', 'detail', 'pay', 'fruits', 'person', 'signUp', 'signIn', 'personCenter', 'personInfo']
 
 router.beforeEach((to, from, next) => { 
     console.log(to)

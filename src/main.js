@@ -11,8 +11,12 @@ import 'lib-flexible'
 import './permission'
 import Icon from 'vue-svg-icon/Icon.vue'
 
+import  "./views/head/index"
+
 import 'swiper/dist/css/swiper.css'
 import 'element-ui/lib/theme-chalk/index.css'
+
+import NutUI from '@nutui/nutui'
 
 import cookie from '@/until/setCookie'
 
@@ -22,9 +26,11 @@ Vue.prototype.$Ajax = Ajax
 Vue.prototype.$cookie = cookie
 
 
-// require('./axios/mock.js')
 
+// require('./axios/mock.js')
+NutUI.install(Vue)
 Vue.use(ElementUI)
+
 Vue.component('icon', Icon)
 
 /* eslint-disable no-new */

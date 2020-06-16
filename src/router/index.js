@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import index from '@/views/index'
 // import travelList from '@/views/contentList/travelList'
 // import detail from '@/views/detail'
+import { personRouter } from './personCenter.js'
+
 
 Vue.use(Router)
 
@@ -51,6 +53,7 @@ export default new Router({
     component: resolve => require(['@/views/errorPage/401'], resolve),
     hidden: true
   },
+  ...personRouter,
   { path: '*', redirect: '/401', hidden: true }
   ]
 })

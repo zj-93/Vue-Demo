@@ -4,6 +4,8 @@ const _connent = require('./dbConnent')
 // var dbName = 'lvProduct'
 
 
+
+
 // 注册账号
 router.all('/signUp', function (req, res) {
   _connent(function (err, db, adminDb) {

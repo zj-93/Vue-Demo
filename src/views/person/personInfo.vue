@@ -11,9 +11,7 @@
                     bg-image='/static/image/portrait/1.jpg'></nut-avatar>
       </nut-cell>
       <nut-cell :is-link="true"
-                link-url="//m.jd.com"
-                :show-icon="true"
-                target="_target">
+                :show-icon="true">
         <span slot="title">用户名</span>
         <span slot="icon">adsdadas</span>
       </nut-cell>

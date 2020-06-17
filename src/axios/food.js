@@ -19,7 +19,7 @@ export function getFoodList(data) {
 
 export function getTravelList(data) {
     return request({
-        url: '/api/articleList',
+        url: '/api/travelList',
         method: 'post',
         data
     })
@@ -27,7 +27,7 @@ export function getTravelList(data) {
 
 export function getTravelDeatil(params) {
     return request({
-        url: '/api/getTravelDetail',
+        url: '/api/travelDetail',
         method: 'get',
         params
     })

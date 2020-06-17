@@ -1,7 +1,6 @@
 import cookie from '@/until/setCookie'
 import { getUserInfo } from "@/axios/sign.js";
 
-const userName = cookie.getCookie('userName');
 
 const person = {
   state: {
@@ -18,9 +17,9 @@ const person = {
     },
   },
   actions: {
-    GetUserInfo( { commit } ){
+    GetUserInfo( { commit }, user ){
       return new Promise((resolve, reject) => {
-        getUserInfo({ userName: userName }).then(res => {
+        getUserInfo({ userName: user.user }).then(res => {
           const userInfo = { ...res.data }
           commit('SET_USER_INFO', userInfo)
           resolve(res)

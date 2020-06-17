@@ -4,9 +4,14 @@ const path = require('path')
 const bodyParse = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
-const router = require('./router')
-const router2 = require('./register')
-const router3 = require('./importModul')
+
+const foodRouter = require('./modules/food')
+const travelRoute = require('./modules/travel')
+const registerRoute = require('./register')
+
+
+console.log(foodRouter, 'foodRouter.router.routerter')
+
 
 const app = express()
 
@@ -62,9 +67,9 @@ app.all('*', function(req, res, next) {
   }
 });
 
-app.use('/api', router)
-app.use('/api', router2)
-app.use('/api', router3)
+app.use('/api', foodRouter.foodRouter)
+app.use('/api', travelRoute.travelRoute)
+// app.use('/api', registerRoute)
 
 //默认首页路由
 app.get('/travel', function (req, res, next) {

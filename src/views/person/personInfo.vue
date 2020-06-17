@@ -1,8 +1,10 @@
 <!-- 个人信息 -->
 <template>
   <div class='personInfo'>
-    <HeadIndex :headConfig="headConfig" >
-      <i class="edit" slot="langTitle" @click="editInfo">修改</i>
+    <HeadIndex :headConfig="headConfig">
+      <i class="edit"
+         slot="langTitle"
+         @click="editInfo">修改</i>
     </HeadIndex>
     <div>
       <nut-cell :is-link="true"
@@ -10,7 +12,8 @@
         <span slot="title">头像</span>
         <nut-avatar bg-icon
                     slot="desc">
-          <img class="userIcon" :src="info.imgSrc" /></nut-avatar>
+          <img class="userIcon"
+               :src="info.imgSrc" /></nut-avatar>
       </nut-cell>
       <nut-cell :is-link="true"
                 :show-icon="true">
@@ -63,15 +66,15 @@ export default {
       headConfig: {
         left: true,
         right: false,
-        Rtext: '修改',
+        Rtext: "修改",
         text: "个人信息"
       },
       info: {
-        imgSrc: '',
-        userName: '',
-        nickName: '',
+        imgSrc: "",
+        userName: "",
+        nickName: "",
         sex: "请选择",
-        birthDate: '请选择'
+        birthDate: "请选择"
       },
       isVisible: false,
       menuItems: [
@@ -84,7 +87,7 @@ export default {
           value: 1
         }
       ],
-      pickerDialog: false,
+      pickerDialog: false
     };
   },
   computed: {},
@@ -93,23 +96,29 @@ export default {
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    this.$store.dispatch('GetUserInfo', true).then(res => {
-      if(res.code == 200) {
-        console.log(res.data)
-        this.info.imgSrc = res.data.imgSrc
-        this.info.userName = res.data.userName
-        this.info.nickName = res.data.nickName
-        this.info.sex = res.data.sex
-        this.info.birthDate = res.data.birthday
-
-      }
-    }, (err) => {
-      console.log(err)
-    })
+    const userName = this.$cookie.getCookie("userName");
+    if (userName) {
+      this.$store.dispatch("GetUserInfo", { user: userName }).then(
+        res => {
+          if (res.code == 200) {
+            this.info.imgSrc = res.data.imgSrc;
+            this.info.userName = res.data.userName;
+            this.info.nickName = res.data.nickName;
+            this.info.sex = res.data.sex;
+            this.info.birthDate = res.data.birthday;
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.signFlag = false;
+    }
   },
   methods: {
     editInfo() {
-      console.log(111)
+      console.log(111);
     },
     clickSex() {
       this.isVisible = !this.isVisible;
@@ -124,18 +133,18 @@ export default {
     setBirth(param) {
       this.info.birthDate = param[3];
       this.pickerDialog = this.pickerDialog;
-    },
+    }
   }
 };
 </script>
 <style lang='less' scoped>
 //@import url(); 引入公共css类
-/deep/ .userIcon{
+/deep/ .userIcon {
   display: block;
   width: 100%;
   height: 100%;
 }
-.edit{
+.edit {
   position: absolute;
   right: 20px;
   top: auto;

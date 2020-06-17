@@ -96,28 +96,39 @@ export default {
           menuName: "退款/售后"
         }
       ],
-      personInfo: {},
+      personInfo: {
+        imgSrc: '',
+        nickName: '',
+        integral: ''
+      },
       cameraPic: {}
     };
   },
-  computed: {
-  },
+  computed: {},
   watch: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     // this.getUserInfo();
-    this.$store.dispatch('GetUserInfo', true).then(res => {
-      if(res.code == 200) {
-        this.signFlag = true
-        this.personInfo = res.data
-      } else {
-        this.signFlag = false
-      }
-    }, (err) => {
-      console.log(err)
-    })
+    const userName = this.$cookie.getCookie("userName");
+    if (userName) {
+      this.$store.dispatch("GetUserInfo", { user: userName }).then(
+        res => {
+          if (res.code == 200) {
+            this.signFlag = true;
+            this.personInfo = res.data;
+          } else {
+            this.signFlag = false;
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.signFlag = false;
+    }
   },
   methods: {
     goBack() {
@@ -151,9 +162,11 @@ export default {
       for (let i = 0; i < file.length; i++) {
         formData.append("file", file[0]);
       }
-      this.$Ajax.post('http://172.16.80.46:3000/api/import', formData).then(res => {
-        console.log(res);
-      });
+      this.$Ajax
+        .post("http://172.16.80.46:3000/api/import", formData)
+        .then(res => {
+          console.log(res);
+        });
     }
   }
 };
@@ -163,7 +176,7 @@ export default {
 .person {
   background: #f9f9f9;
   height: 100vh;
-  /deep/ .personCenter{
+  /deep/ .personCenter {
     font-size: 60px;
     position: absolute;
     right: 20px;

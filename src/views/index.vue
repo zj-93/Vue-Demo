@@ -1,28 +1,35 @@
 <template>
-  <div id="index" class="index">
+  <div id="index"
+       class="index">
     <div class="login">
       <span class="portrait">
-        <img @click="jumpPerson" class="portraitBox" :src="portraitSrc" alt="">
+        <img @click="jumpPerson"
+             class="portraitBox"
+             :src="personPic"
+             alt="">
       </span>
-      <!-- <span @click="signIn">登陆</span>
-      <span @click="signUp">注册</span> -->
     </div>
     <banner-img />
     <top-menu @changeMenu="changeMenu" />
     <recommended-list />
     <!-- <content-list :scroll-state="scrollState" :content-list="contentList" /> -->
     <router-view />
-    
-    <el-dialog :title="btnName" :visible.sync="dialogFormVisible">
+
+    <el-dialog :title="btnName"
+               :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="用户名">
-          <el-input v-model="form.userName" autocomplete="off"></el-input>
+          <el-input v-model="form.userName"
+                    autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="form.passWord" autocomplete="off" show-password></el-input>
+          <el-input v-model="form.passWord"
+                    autocomplete="off"
+                    show-password></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer"
+           class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button type="primary">{{ btnName }}</el-button>
       </div>
@@ -47,9 +54,10 @@ export default {
   },
   data() {
     return {
-      portraitSrc: 'static/image/portrait/1.jpg',
+      portraitSrc: "static/image/logo/logo.png",
+      imgSrc: '',
       scrollState: "0",
-      btnName: '注册',
+      btnName: "注册",
       flag: true,
       contentList: [],
       list: [],
@@ -60,14 +68,22 @@ export default {
       }
     };
   },
+  computed: {
+    personPic() {
+      this.imgSrc = this.$store.state.userInfo.userInfo.imgSrc;
+      const picUrl = this.imgSrc ? this.imgSrc : this.portraitSrc;
+      return picUrl;
+    }
+  },
   mounted() {
     this.list = list;
+    this.imgSrc = this.$store.state.userInfo.userInfo.imgSrc
   },
   methods: {
     jumpPerson() {
       this.$router.push({
-        path: '/person'
-      })
+        path: "/person"
+      });
     },
     changeMenu(item) {
       const data = {
@@ -85,12 +101,12 @@ export default {
   display: block;
   width: 100%;
   height: 80px;
-  background: #FFA743;
+  background: #ffa743;
   text-decoration: underline;
   color: blue;
   z-index: 999;
   cursor: pointer;
-  .portraitBox{
+  .portraitBox {
     display: block;
     width: 60px;
     height: 60px;
@@ -99,11 +115,11 @@ export default {
     margin: 5px 10px;
   }
 }
-/deep/ .el-dialog{
+/deep/ .el-dialog {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  margin-top: 0!important;
+  margin-top: 0 !important;
 }
 </style>

@@ -8,12 +8,13 @@ const person = {
       nickName: '',
       userName: '',
       sex: '',
-      birthDate: ''
+      birthDate: '',
+      imgSrc: ''
     }
   },
   mutations: {
     SET_USER_INFO: (state, userInfo) => {
-      state.userInfo = userInfo
+      state.userInfo = { ...userInfo }
     },
   },
   actions: {

@@ -7,10 +7,10 @@ const MongoStore = require('connect-mongo')(session)
 
 const foodRouter = require('./modules/food')
 const travelRoute = require('./modules/travel')
-const registerRoute = require('./register')
+const registerRoute = require('./modules/register')
 
 
-console.log(foodRouter, 'foodRouter.router.routerter')
+console.log(registerRoute, 'foodRouter.router.routerter')
 
 
 const app = express()
@@ -59,17 +59,19 @@ app.all('*', function(req, res, next) {
 
   console.log('前端的请求方法：',req.method,'请求ip为：',getClientIp(req) );
   console.log(req.url,'前端传进来的参数为===：',req.method == 'GET'?req.query:req.body)
-
+  
   if ('OPTIONS' == req.method) {
+      console.log(111111111111111)
       res.send(200);
   } else {
-      next();
+    console.log(2222222222)
+    next();
   }
 });
 
 app.use('/api', foodRouter.foodRouter)
 app.use('/api', travelRoute.travelRoute)
-// app.use('/api', registerRoute)
+app.use('/api', registerRoute.registerRoute)
 
 //默认首页路由
 app.get('/travel', function (req, res, next) {

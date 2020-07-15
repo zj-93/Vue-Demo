@@ -17,6 +17,7 @@ import 'swiper/dist/css/swiper.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import NutUI from '@nutui/nutui'
+// import '@nutui/nutui/dist/nutui.css';
 
 import cookie from '@/until/setCookie'
 

@@ -46,8 +46,16 @@
     <nut-datepicker :is-visible="pickerDialog"
                     title="请选择日期"
                     type="date"
+                    startDate="1991-1-1"
                     @close="clickBirth"
-                    @choose="setBirth" />
+                    @choose="setBirth">
+    </nut-datepicker>
+
+    <!-- <nut-datepicker :is-visible="pickerDialog"
+                    title="请选择日期"
+                    type="date"
+                    @close="clickBirth"
+                    @choose="setBirth" /> -->
 
     <nut-actionsheet :is-visible="isVisible"
                      @close="clickSex"

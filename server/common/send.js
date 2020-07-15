@@ -3,7 +3,7 @@ const send = function (res,code, msg , data) {
     {
       code: code,
       msg: msg,
-      data: data
+      data: data || {}
     }
   )
 }

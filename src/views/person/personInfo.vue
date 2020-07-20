@@ -80,7 +80,7 @@
 
 <script>
 //例如：import 《组件名称》 from '《组件路径》';
-import { updateUserInfo } from "@/axios/personCenter.js";
+import { updateUserInfo, importPhoto } from "@/axios/personCenter.js";
 
 export default {
   components: {},
@@ -99,6 +99,7 @@ export default {
         sex: "请选择",
         birthDate: "请选择"
       },
+      tempNickName: "",
       isVisible: false,
       menuItems: [
         {
@@ -148,14 +149,18 @@ export default {
       for (let i = 0; i < file.length; i++) {
         formData.append("file", file[0]);
       }
-      this.$Ajax
-        .post("http://172.16.80.46:3000/api/import", formData)
-        .then(res => {
-          console.log(res);
-        });
+      importPhoto(formData).then(res => {
+        if (res.code == 200) {
+          this.$set(this.info, "imgSrc", res.data.fileAccept);
+          let data = {
+            imgSrc: res.data.fileAccept
+          };
+          this.updateInfo(data);
+        }
+      });
     },
     clickImg() {
-      this.$refs.camera.click()
+      this.$refs.camera.click();
     },
     clickSex() {
       this.isVisible = !this.isVisible;
@@ -180,6 +185,7 @@ export default {
       this.updateInfo(data);
     },
     clickNickName() {
+      this.tempNickName = this.info.nickName;
       this.dialogShow = true;
     },
     nickNameModify() {
@@ -189,10 +195,15 @@ export default {
       this.updateInfo(data);
     },
     nickNameCancel() {
+      this.info.nickName = this.tempNickName;
       this.dialogShow = false;
     },
     updateInfo(data) {
-      updateUserInfo(data).then(res => {
+      let params = {
+        ...data,
+        userName: this.info.userName
+      };
+      updateUserInfo(params).then(res => {
         if (res.code == 200) {
           this.$message.success(res.msg);
           this.dialogShow = false;

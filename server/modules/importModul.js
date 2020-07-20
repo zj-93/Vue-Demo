@@ -43,7 +43,7 @@ router.all('/import',upload.single('file'), function(req, res) {
           if(err) {
             send(res, code = 500, msg = '上传失败')
           } else {
-            send(res, code = 500, msg = '上传成功', data)
+            send(res, code = 200, msg = '上传成功', data)
           }
         })
       })

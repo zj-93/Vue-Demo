@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class='imgBox'>
-    <div v-for="(item, index) in imageList" :key="index">
+    <div class="imgWrapper" v-for="(item, index) in imageList" :key="index">
       <img class="img" :src="item.fileAccept" alt="">
     </div>
 
@@ -104,9 +104,22 @@ export default {
   height: 178px;
   display: block;
 }
+.imgBox{
+  background: #fff;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.imgWrapper{
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  width: 122px;
+  height: 122px;
+}
 .img{
   display: inline-block;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
 }
 </style>

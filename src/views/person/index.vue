@@ -142,9 +142,15 @@ export default {
       });
     },
     personCenter() {
-      this.$router.push({
+      const userName = this.$cookie.getCookie("userName");
+      if(userName) {
+        this.$router.push({
         path: "/personCenter"
       });
+      } else {
+        this.$message.error('未登录')
+      }
+      
     }
   }
 };
@@ -177,6 +183,7 @@ export default {
     display: block;
     width: 100%;
     height: 100px;
+    margin-bottom: 20px;
     background: #ffa743;
     text-align: center;
     line-height: 100px;

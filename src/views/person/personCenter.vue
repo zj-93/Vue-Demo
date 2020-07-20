@@ -9,6 +9,13 @@
                 :show-icon="true"
                 title="个人信息">
       </nut-cell>
+      <nut-cell v-if="isRealRegister"
+                :is-link="true"
+                to="/realNameAuth"
+                @click-cell="clickEvnt"
+                :show-icon="true"
+                title="实名认证">
+      </nut-cell>
       <div class="exit">
         <nut-button block @click.native="exit">
           退出登录
@@ -29,7 +36,8 @@ export default {
         left: true,
         right: false,
         text: "设置"
-      }
+      },
+      isRealRegister: true
     };
   },
   computed: {},

@@ -48,11 +48,12 @@ export default {
 .head {
   display: block;
   width: 100%;
-  height: 80px;
+  height: 100px;
   background: #ffa743;
   text-align: center;
-  line-height: 80px;
+  line-height: 100px;
   color: #fff;
+  margin-bottom: 20px;
   .title {
     font-size: 36px;
   }
@@ -64,7 +65,7 @@ export default {
   }
   /deep/ .el-icon-arrow-left {
     font-size: 60px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 20px;
     position: absolute;
     left: 0;

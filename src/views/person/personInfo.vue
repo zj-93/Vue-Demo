@@ -2,18 +2,17 @@
 <template>
   <div class='personInfo'>
     <HeadIndex :headConfig="headConfig">
-      <i class="edit"
-         slot="langTitle"
-         @click="editInfo">修改</i>
     </HeadIndex>
     <div>
       <nut-cell :is-link="true"
-                :show-icon="true">
+                :show-icon="true"
+                @click-cell="clickImg">
         <span slot="title">头像</span>
         <nut-avatar bg-icon
                     slot="desc">
           <img class="userIcon"
-               :src="info.imgSrc" /></nut-avatar>
+               :src="info.imgSrc" />
+        </nut-avatar>
       </nut-cell>
       <nut-cell :is-link="true"
                 :show-icon="true">
@@ -21,7 +20,8 @@
         <span slot="icon">{{ info.userName }}</span>
       </nut-cell>
       <nut-cell :is-link="true"
-                :show-icon="true">
+                :show-icon="true"
+                @click-cell="clickNickName">
         <span slot="title">昵称</span>
         <span slot="desc">{{ info.nickName }}</span>
       </nut-cell>
@@ -51,21 +51,36 @@
                     @choose="setBirth">
     </nut-datepicker>
 
-    <!-- <nut-datepicker :is-visible="pickerDialog"
-                    title="请选择日期"
-                    type="date"
-                    @close="clickBirth"
-                    @choose="setBirth" /> -->
-
     <nut-actionsheet :is-visible="isVisible"
                      @close="clickSex"
                      :menu-items="menuItems"
                      @choose="chooseItem" />
+
+    <nut-dialog title="昵称修改"
+                :visible="dialogShow"
+                @ok-btn-click="nickNameModify"
+                @cancel-btn-click="nickNameCancel"
+                @close="dialogShow=false">
+      <nut-textinput v-model="info.nickName"
+                     placeholder="请输入昵称"
+                     :clearBtn="true"
+                     :disabled="false" />
+    </nut-dialog>
+
+    <input ref="camera"
+           @change="upload_photo"
+           class="js_upFile cover1"
+           type="file"
+           name="cover"
+           accept="image/*"
+           capture="camera" />
+
   </div>
 </template>
 
 <script>
 //例如：import 《组件名称》 from '《组件路径》';
+import { updateUserInfo } from "@/axios/personCenter.js";
 
 export default {
   components: {},
@@ -95,7 +110,8 @@ export default {
           value: 1
         }
       ],
-      pickerDialog: false
+      pickerDialog: false,
+      dialogShow: false
     };
   },
   computed: {},
@@ -125,8 +141,21 @@ export default {
     }
   },
   methods: {
-    editInfo() {
-      console.log(111);
+    upload_photo() {
+      var inputDOM = this.$refs.camera;
+      var file = inputDOM.files;
+      var formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+        formData.append("file", file[0]);
+      }
+      this.$Ajax
+        .post("http://172.16.80.46:3000/api/import", formData)
+        .then(res => {
+          console.log(res);
+        });
+    },
+    clickImg() {
+      this.$refs.camera.click()
     },
     clickSex() {
       this.isVisible = !this.isVisible;
@@ -134,6 +163,10 @@ export default {
     chooseItem(itemParams) {
       this.info.sex = itemParams.name;
       this.isVisible = this.isVisible;
+      const data = {
+        sex: itemParams.name
+      };
+      this.updateInfo(data);
     },
     clickBirth() {
       this.pickerDialog = !this.pickerDialog;
@@ -141,6 +174,30 @@ export default {
     setBirth(param) {
       this.info.birthDate = param[3];
       this.pickerDialog = this.pickerDialog;
+      const data = {
+        birthday: param[3]
+      };
+      this.updateInfo(data);
+    },
+    clickNickName() {
+      this.dialogShow = true;
+    },
+    nickNameModify() {
+      const data = {
+        nickName: this.info.nickName
+      };
+      this.updateInfo(data);
+    },
+    nickNameCancel() {
+      this.dialogShow = false;
+    },
+    updateInfo(data) {
+      updateUserInfo(data).then(res => {
+        if (res.code == 200) {
+          this.$message.success(res.msg);
+          this.dialogShow = false;
+        }
+      });
     }
   }
 };
@@ -156,5 +213,8 @@ export default {
   position: absolute;
   right: 20px;
   top: auto;
+}
+.cover1 {
+  display: none;
 }
 </style>

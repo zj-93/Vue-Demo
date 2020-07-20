@@ -1,23 +1,25 @@
 <!--  -->
 <template>
-  <div class=''>
-    <div class="imgWrap" v-for="(item, index) in imageList" :key="index">
-      <img :src="item.path" alt="">
+  <div class='imgBox'>
+    <div v-for="(item, index) in imageList" :key="index">
+      <img class="img" :src="item.fileAccept" alt="">
     </div>
 
-    <el-upload class="avatar-uploader"
-               action="http://172.16.80.46:3000/api/import"
-               :show-file-list="false"
-               :on-success="handleAvatarSuccess"
-               :before-upload="beforeAvatarUpload">
-      <img v-if="imageUrl"
-           :src="imageUrl"
-           class="avatar">
-      <i v-else
-         class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+    <div class="uploadWrap">
+       <el-upload class="avatar-uploader"
+                action="http://172.16.80.46:3000/api/import"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl"
+            :src="imageUrl"
+            class="avatar">
+        <i v-else
+          class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
 
-    <input ref="camera" class="js_upFile cover1" type="file" name="cover" accept="image/*" capture="camera" multiple/>
+      <input ref="camera" class="js_upFile cover1" type="file" name="cover" accept="image/*" capture="camera" multiple/>
+    </div>
   </div>
 </template>
 
@@ -46,9 +48,9 @@ export default {
     var ua = navigator.userAgent.toLowerCase();
     //判断是否是苹果手机，是则是true
     var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
-    if (isIos) {
-        this.$refs.camera.removeAttr("capture");
-    };
+    // if (isIos) {
+    //     this.$refs.camera.removeAttr("capture");
+    // };
   },
   methods: {
     handleAvatarSuccess(res, file) {
@@ -101,5 +103,10 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.img{
+  display: inline-block;
+  width: 100px;
+  height: 100px;
 }
 </style>

@@ -8,6 +8,9 @@ const MongoStore = require('connect-mongo')(session)
 const foodRouter = require('./modules/food')
 const travelRoute = require('./modules/travel')
 const registerRoute = require('./modules/register')
+const personCenterRoute = require('./modules/personCenter')
+const importModuleRoute = require('./modules/importModul')
+
 
 
 console.log(registerRoute, 'foodRouter.router.routerter')
@@ -72,6 +75,10 @@ app.all('*', function(req, res, next) {
 app.use('/api', foodRouter.foodRouter)
 app.use('/api', travelRoute.travelRoute)
 app.use('/api', registerRoute.registerRoute)
+app.use('/api', personCenterRoute.personCenterRoute)
+app.use('/api', importModuleRoute.importModuleRoute)
+
+
 
 //默认首页路由
 app.get('/travel', function (req, res, next) {

@@ -32,17 +32,11 @@ function findPass(res, req, moduleColl) {
       resolve(data)
     })
   })
-
-
-
 }
-
-
 
 router.all('/signIn', function (req, res) {
   _connent('users', function (err, moduleColl) {
     findUser(res, req, moduleColl).then(params => {
-      console.log(params, 'params')
       if (params.length == 0) {
         send(res, code = 500, msg = '未查询到该用户', params)
       } else {

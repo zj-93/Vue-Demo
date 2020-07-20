@@ -53,15 +53,6 @@
         </div>
       </div>
     </div>
-
-    <input ref="camera"
-           @change="upload_photo"
-           class="js_upFile cover1"
-           type="file"
-           name="cover"
-           accept="image/*"
-           capture="camera"
-           multiple />
   </div>
 </template>
 
@@ -154,19 +145,6 @@ export default {
       this.$router.push({
         path: "/personCenter"
       });
-    },
-    upload_photo() {
-      var inputDOM = this.$refs.camera;
-      var file = inputDOM.files;
-      var formData = new FormData();
-      for (let i = 0; i < file.length; i++) {
-        formData.append("file", file[0]);
-      }
-      this.$Ajax
-        .post("http://172.16.80.46:3000/api/import", formData)
-        .then(res => {
-          console.log(res);
-        });
     }
   }
 };
@@ -180,11 +158,11 @@ export default {
     font-size: 60px;
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 20px;
   }
   /deep/ .el-icon-arrow-left {
     font-size: 60px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 20px;
     position: absolute;
     left: 0;
@@ -198,10 +176,10 @@ export default {
   .head {
     display: block;
     width: 100%;
-    height: 80px;
+    height: 100px;
     background: #ffa743;
     text-align: center;
-    line-height: 80px;
+    line-height: 100px;
     color: #fff;
     .title {
       font-size: 36px;

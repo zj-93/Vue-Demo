@@ -12,55 +12,67 @@
         产品详情
       </div>
     </header>
-    <div class="imgClass">
-      <el-carousel height="25vh">
-        <el-carousel-item v-for="(item,index) in dataDetail.img"
-                          :key="index">
-          <img :src="item.url"
-               alt="">
-        </el-carousel-item>
-      </el-carousel>
+    <div class="desc">
+      <div class="imgClass">
+        <el-carousel height="25vh">
+          <el-carousel-item v-for="(item,index) in dataDetail.img"
+                            :key="index">
+            <img :src="item.url"
+                 alt="">
+          </el-carousel-item>
+        </el-carousel>
 
-      <div class="nameClass">
-        <span>{{dataDetail.variety}} · {{dataDetail.way}}</span>
-        <span class="numClass">产品编码：{{dataDetail.id}}</span>
-      </div>
-    </div>
-    <div class="priceClass">
-      <span class="numClass">￥{{dataDetail.price}}</span> <i>起</i>
-    </div>
-
-    <div class="">
-
-    </div>
-
-    <el-collapse v-model="activeNames"
-                 @change="handleChange"
-                 accordion>
-      <el-collapse-item title="费用说明"
-                        name="1">
-        <div v-for="(item, index) in dataDetail.desc"
-             :key="index">
-             <div class="subTitle">{{item.subTitle}}</div>
-             <div>{{ item.content }}</div>
+        <div class="nameClass">
+          <span>{{dataDetail.variety}} · {{dataDetail.way}}</span>
+          <span class="numClass">产品编码：{{dataDetail.id}}</span>
         </div>
-      </el-collapse-item>
-      <el-collapse-item title="温馨提示"
-                        name="2">
-        <div>{{ dataDetail.warning }}</div>
-      </el-collapse-item>
-    </el-collapse>
+      </div>
+      <div class="priceClass">
+        <span class="numClass">￥{{dataDetail.price}}</span> <i>起</i>
+      </div>
+      <el-collapse v-model="activeNames"
+                   @change="handleChange"
+                   accordion>
+        <el-collapse-item title="费用说明"
+                          name="1">
+          <div v-for="(item, index) in dataDetail.desc"
+               :key="index">
+            <div class="subTitle">{{item.subTitle}}</div>
+            <div>{{ item.content }}</div>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item title="温馨提示"
+                          name="2">
+          <div>{{ dataDetail.warning }}</div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
+
+    <div class="footer">
+      <nut-button block
+                  @click.native="reserve">
+        预定
+      </nut-button>
+    </div>
+
+    <reservePage v-if="isShow"></reservePage>
+    
   </div>
 </template>
 
 <script>
+import reservePage from './reservePage.vue'
 import { getTravelDeatil } from "@/axios/food.js";
 
 export default {
+  components: { 
+    reservePage 
+  },
   data() {
     return {
+      isShow: false,
       dataDetail: {},
-      activeNames: []
+      activeNames: [],
     };
   },
   created() {},
@@ -80,15 +92,17 @@ export default {
         id: this.id
       };
       getTravelDeatil(data).then(res => {
-        console.log(res, "res");
         this.dataDetail = res.data;
       });
+    },
+    reserve() {
+      this.isShow = true
     }
   }
 };
 </script>
 <style lang='less'>
-header{
+header {
   width: 100%;
   height: 80px;
   position: fixed;
@@ -96,19 +110,19 @@ header{
   left: 0;
   z-index: 99;
   background-color: orangered;
-  .title{
+  .title {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translate(-50% , 50%);
+    transform: translate(-50%, 50%);
     color: #fff;
     font-size: 32px;
   }
-  .area{
+  .area {
     position: absolute;
     top: 8px;
     left: 100px;
-    transform: translate(0 , 50%);
+    transform: translate(0, 50%);
     color: #fff;
     font-size: 28px;
   }
@@ -173,9 +187,20 @@ header{
 .el-collapse-item__content {
   padding: 0 20px;
 }
-.subTitle{
+.subTitle {
   margin-top: 20px;
   font-weight: bolder;
   font-size: 28px;
+}
+.desc {
+  max-height: 1220px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.footer {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 </style>

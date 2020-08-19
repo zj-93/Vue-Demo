@@ -3,6 +3,7 @@
        class="index">
     <div class="login">
       <span class="portrait">
+        <span class="">{{titleText}}</span>
         <img @click="jumpPerson"
              class="portraitBox"
              :src="personPic"
@@ -55,7 +56,7 @@ export default {
   data() {
     return {
       portraitSrc: "static/image/logo/logo.png",
-      imgSrc: '',
+      imgSrc: "",
       scrollState: "0",
       btnName: "注册",
       flag: true,
@@ -65,7 +66,8 @@ export default {
       form: {
         userName: "",
         passWord: ""
-      }
+      },
+      titleText: "旅游"
     };
   },
   computed: {
@@ -75,9 +77,14 @@ export default {
       return picUrl;
     }
   },
+  watch: {
+    $router(val) {
+      console.log(val);
+    }
+  },
   mounted() {
     this.list = list;
-    this.imgSrc = this.$store.state.userInfo.userInfo.imgSrc
+    this.imgSrc = this.$store.state.userInfo.userInfo.imgSrc;
   },
   methods: {
     jumpPerson() {
@@ -86,9 +93,13 @@ export default {
       });
     },
     changeMenu(item) {
-      const data = {
-        menuCode: item
-      };
+      if (item == "travel") {
+        this.titleText = "旅游";
+      } else if (item == "food") {
+        this.titleText = "美食";
+      } else if (item == "fruits") {
+        this.titleText = "水果";
+      }
     }
   }
 };

@@ -8,6 +8,7 @@ const send = require('../common/send')
 
 // 文件上传
 var multer = require('multer');//引入multer
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'E:\\files')

@@ -174,7 +174,7 @@ export default {
 
 </script>
 <style lang='less' scoped>
-.content {background-color:#fff;.viewList {padding:20px 20px;display:block;height:175px;overflow:hidden;border-bottom:1px solid #c9c9c9;position:relative;.imgArea {float:left;display:inline-block;width:280px;margin-right:20px;img {width:280px;height:160px;}
+.content {background-color:#fff;margin-bottom: 120px ;.viewList {padding:20px 20px;display:block;height:175px;overflow:hidden;border-bottom:1px solid #c9c9c9;position:relative;.imgArea {float:left;display:inline-block;width:280px;margin-right:20px;img {width:280px;height:160px;}
 }
 .textArea {display:inline-block;width:calc(100% - 20px);height:100%;margin-left:20px;padding:20px 20px 20px 300px;box-sizing:border-box;position:absolute;top:0;left:0;word-break:break-all;.title {font-size:20px;color:#222;height:60px;line-height:30px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;box-sizing:border-box;margin-bottom:10px;}
 .desc {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#999;margin-bottom:20px;}

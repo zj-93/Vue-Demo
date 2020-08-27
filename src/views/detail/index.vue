@@ -30,9 +30,33 @@
       <div class="priceClass">
         <span class="numClass">￥{{dataDetail.price}}</span> <i>起</i>
       </div>
+
       <el-collapse v-model="activeNames"
                    @change="handleChange"
                    accordion>
+        <el-collapse-item title="请选择出行人数"
+                          name="3">
+          <div class="configClass">
+            <div class="configMan">
+              <div class="configManTitle">
+                成人
+              </div>
+              <div class="configManCount">
+                <nut-stepper :simple="false"
+                             :value.sync="form.adultNum"></nut-stepper>
+              </div>
+            </div>
+            <div class="configMan">
+              <div class="configManTitle">
+                儿童
+              </div>
+              <div class="configManCount">
+                <nut-stepper :simple="false"
+                             :value.sync="form.childNum"></nut-stepper>
+              </div>
+            </div>
+          </div>
+        </el-collapse-item>
         <el-collapse-item title="费用说明"
                           name="1">
           <div v-for="(item, index) in dataDetail.desc"
@@ -49,31 +73,60 @@
     </div>
 
     <div class="footer">
-      <nut-button block
-                  @click.native="reserve">
+      <div class="totalCost">
+        <span class="cost">总费用: <i>{{ totalCost }}</i> 元</span>
+        <span class="viewCost"
+              @click="viewCost">费用明细
+          <nut-icon type="down"></nut-icon>
+        </span>
+      </div>
+      <nut-button @click.native="reserve">
         预定
       </nut-button>
     </div>
 
-    <reservePage v-if="isShow"></reservePage>
-    
+    <!-- 日历 -->
+    <reservePage ref="reservePage"></reservePage>
+
+    <!-- 明细 -->
+    <nut-actionsheet :is-visible="isVisible"
+                     @close="switchActionSheet">
+      <div slot="custom"
+           class="custom-wrap">
+        <div>费用明细</div>
+      </div>
+    </nut-actionsheet>
+
   </div>
 </template>
 
 <script>
-import reservePage from './reservePage.vue'
+import reservePage from "./reservePage.vue";
 import { getTravelDeatil } from "@/axios/food.js";
 
 export default {
-  components: { 
-    reservePage 
+  components: {
+    reservePage,
   },
   data() {
     return {
+      isVisible: false,
       isShow: false,
       dataDetail: {},
       activeNames: [],
+      form: {
+        adultNum: 0,
+        childNum: 0,
+      },
     };
+  },
+  computed: {
+    totalCost() {
+      return eval(
+        this.form.adultNum * this.dataDetail.price +
+          (this.form.childNum / 2) * this.dataDetail.price
+      );
+    },
   },
   created() {},
   mounted() {
@@ -81,6 +134,12 @@ export default {
     this.getDetailById();
   },
   methods: {
+    switchActionSheet() {
+      this.isVisible = !this.isVisible;
+    },
+    viewCost() {
+      this.isVisible = !this.isVisible;
+    },
     goBack() {
       history.go(-1);
     },
@@ -89,16 +148,18 @@ export default {
     },
     getDetailById() {
       let data = {
-        id: this.id
+        id: this.id,
       };
-      getTravelDeatil(data).then(res => {
+      getTravelDeatil(data).then((res) => {
         this.dataDetail = res.data;
       });
     },
     reserve() {
-      this.isShow = true
-    }
-  }
+      // this.isShow = true;
+      // console.log(this.$refs.reservePage);
+      this.$refs.reservePage.isVisible1 = true;
+    },
+  },
 };
 </script>
 <style lang='less'>
@@ -198,9 +259,55 @@ header {
   overflow-y: auto;
 }
 .footer {
-  display: flex;
   width: 100%;
   position: absolute;
   bottom: 0;
+  line-height: 93px;
+  /deep/ .nut-button {
+    float: right;
+    width: 300px;
+    padding: 0;
+  }
+  .totalCost {
+    padding-left: 20px;
+    box-sizing: border-box;
+    float: left;
+    width: calc(100% - 300px);
+    font-size: 28px;
+    border-top: 2px solid #efefef;
+    .viewCost {
+      float: right;
+      margin-right: 20px;
+      color: #1974d8;
+    }
+    /deep/ .nut-icon {
+      vertical-align: middle;
+    }
+  }
+}
+.configClass {
+  .title {
+    border-bottom: 2px solid #efefef;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+  .configMan {
+    display: flex;
+    margin-bottom: 40px;
+    .configManTitle {
+      width: 200px;
+      line-height: 70px;
+    }
+  }
+}
+</style>
+
+<style lang="less">
+/deep/ .custom-wrap {
+  height: 400px;
+  padding: 40px;
+  box-sizing: border-box;
 }
 </style>

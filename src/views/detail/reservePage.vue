@@ -31,7 +31,7 @@ export default {
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    this.isVisible1 = true
+    // this.isVisible1 = true
   },
   methods: {
     setChooseValue1(param) {

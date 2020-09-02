@@ -55,6 +55,7 @@ export default {
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
+      this.getImgList()
     },
     getImgList() {
       getImgList().then(res => {

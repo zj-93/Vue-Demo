@@ -52,7 +52,6 @@ router.all('/import',upload.single('file'), function(req, res) {
   }
 })
 
-
 router.all('/getImgList', function(req, res) {
   _connent('imageSet', function(err, moduleColl) {
     moduleColl.find({}).toArray(async (err, data) => {
@@ -81,10 +80,6 @@ router.all('/export', function (req, res) {
   readStream.on('end', () => {
     res.end();
   })
-  // _connect(function (err, db) {
-  //   const adminDb = db.db(dbName)
-
-  // })
 })
 
 exports.importModuleRoute = router

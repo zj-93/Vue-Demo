@@ -18,7 +18,7 @@
           class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
 
-      <input ref="camera" class="js_upFile cover1" type="file" name="cover" accept="image/*" capture="camera" multiple/>
+      <input ref="camera" class="js_upFile cover1" type="file" name="cover" accept="image/*" multiple/>
     </div>
   </div>
 </template>

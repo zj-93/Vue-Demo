@@ -1,7 +1,7 @@
 const express = require('express')
-const fs = require('fs')
+const fs = require('fs') // 文件读取
 const path = require('path')
-const bodyParse = require('body-parser')
+const bodyParse = require('body-parser') // body-parser 解析post数据
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 
@@ -10,11 +10,6 @@ const travelRoute = require('./modules/travel')
 const registerRoute = require('./modules/register')
 const personCenterRoute = require('./modules/personCenter')
 const importModuleRoute = require('./modules/importModul')
-
-
-
-console.log(registerRoute, 'foodRouter.router.routerter')
-
 
 const app = express()
 

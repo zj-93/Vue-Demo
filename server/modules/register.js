@@ -74,6 +74,20 @@ router.all('/signUp', function (req, res) {
             send(res, code = 500, msg = '该用户已存在')
           } else {
             insertUserInfo(req.body.userName, req.body.nickName)
+            // _connent('users',function(err, moduleColl){
+            //   moduleColl.aggregate([
+            //     {
+            //       $lookup: {
+            //         from: 'userInfo',
+            //         localField: 'userName',
+            //         foreignField: 'userName',
+            //         as: 'userInfo'    
+            //       }
+            //     }
+            //   ]).toArray(function(err,params) {
+            //     send(res, code = 200, msg = '注册成功', params)
+            //   })
+            // })
             const params = {
               userName: req.body.userName
             }

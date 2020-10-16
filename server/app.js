@@ -74,7 +74,6 @@ app.use('/api', personCenterRoute.personCenterRoute)
 app.use('/api', importModuleRoute.importModuleRoute)
 
 
-
 //默认首页路由
 app.get('/travel', function (req, res, next) {
   fs.readFile('./json/list.json',function(err,data){

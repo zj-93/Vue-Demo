@@ -63,6 +63,7 @@ app.all('*', function(req, res, next) {
       res.send(200);
   } else {
     console.log(2222222222)
+    // res.end('adasdasdaddadasd')
     next();
   }
 });
@@ -74,13 +75,13 @@ app.use('/api', personCenterRoute.personCenterRoute)
 app.use('/api', importModuleRoute.importModuleRoute)
 
 
-//默认首页路由
-app.get('/travel', function (req, res, next) {
-  fs.readFile('./json/list.json',function(err,data){
-      res.writeHead(200,{"Content-type":"text/html;charset=UTF-8"})
-      res.end(data);
-  })
-});
+// //默认首页路由
+// app.get('/travel', function (req, res, next) {
+//   fs.readFile('./json/list.json',function(err,data){
+//       res.writeHead(200,{"Content-type":"text/html;charset=UTF-8"})
+//       res.end(data);
+//   })
+// });
 
 
 

@@ -7,7 +7,7 @@
 
     <div class="uploadWrap">
        <el-upload class="avatar-uploader"
-                action="http://172.16.80.46:3000/api/import"
+                action="http://172.16.12.8:3000/api/import"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">

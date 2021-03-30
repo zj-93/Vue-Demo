@@ -57,6 +57,17 @@
             </div>
           </div>
         </el-collapse-item>
+        <el-collapse-item title="选择出行时间"
+                          name="4">
+          <!-- 日历 -->
+          <reservePage ref="reservePage" @chooseTime="chooseTime"></reservePage>
+          <div>
+            出发时间： {{date[0]}}
+          </div> 
+          <div>
+            结束时间： {{date[1]}}
+          </div> 
+        </el-collapse-item>
         <el-collapse-item title="费用说明"
                           name="1">
           <div v-for="(item, index) in dataDetail.desc"
@@ -85,15 +96,16 @@
       </nut-button>
     </div>
 
-    <!-- 日历 -->
-    <reservePage ref="reservePage"></reservePage>
-
     <!-- 明细 -->
     <nut-actionsheet :is-visible="isVisible"
                      @close="switchActionSheet">
       <div slot="custom"
            class="custom-wrap">
         <div>费用明细</div>
+        <div>
+          <div><span>成人票</span> <span>{{this.form.adultNum}}</span>张 <span>{{this.form.childNum * dataDetail.price}}</span></div>
+          <div><span>儿童票</span> <span>{{this.form.childNum}}</span>张 <span>{{this.form.childNum * Math.ceil(this.dataDetail.price / 2)}}</span></div>
+        </div>
       </div>
     </nut-actionsheet>
 
@@ -118,13 +130,14 @@ export default {
         adultNum: 0,
         childNum: 0,
       },
+      date: []
     };
   },
   computed: {
     totalCost() {
       return eval(
         this.form.adultNum * this.dataDetail.price +
-          (this.form.childNum / 2) * this.dataDetail.price
+          this.form.childNum  * Math.ceil(this.dataDetail.price / 2)
       );
     },
   },
@@ -144,7 +157,9 @@ export default {
       history.go(-1);
     },
     handleChange(val) {
-      console.log(val);
+      if(val == 4) {
+        this.$refs.reservePage.isVisible1 = true;
+      }
     },
     getDetailById() {
       let data = {
@@ -157,8 +172,12 @@ export default {
     reserve() {
       // this.isShow = true;
       // console.log(this.$refs.reservePage);
-      this.$refs.reservePage.isVisible1 = true;
+      
     },
+    chooseTime(val) {
+      console.log(val)
+      this.date = val
+    }
   },
 };
 </script>

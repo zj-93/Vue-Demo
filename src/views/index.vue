@@ -3,7 +3,7 @@
        class="index">
     <div class="login">
       <span class="portrait">
-        <span class="">{{titleText}}</span>
+        <span class="menuTitle">{{titleText}}</span>
         <img @click="jumpPerson"
              class="portraitBox"
              :src="personPic"
@@ -106,17 +106,10 @@ export default {
 </script>
 <style lang='less' scoped>
 .login {
-  position: fixed;
-  top: 0;
-  right: 0;
   display: block;
   width: 100%;
-  height: 80px;
+  height: 100px;
   background: #ffa743;
-  text-decoration: underline;
-  color: blue;
-  z-index: 999;
-  cursor: pointer;
   .portraitBox {
     display: block;
     width: 60px;
@@ -124,6 +117,16 @@ export default {
     border-radius: 60px;
     float: right;
     margin: 5px 10px;
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+  /deep/.menuTitle{
+    display: block;
+    line-height: 100px;
+    text-align: center;
+    color: #fff;
+    font-size: 36px;
   }
 }
 /deep/ .el-dialog {

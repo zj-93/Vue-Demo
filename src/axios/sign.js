@@ -10,7 +10,7 @@ export function signUp(data) {
 
 export function signIn(data) {
     return request({
-        url: '/api/signIn',
+        url: '/signIn',
         method: 'post',
         data
     })

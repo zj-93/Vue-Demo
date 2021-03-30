@@ -63,7 +63,6 @@ export default {
 .bannerImg{
     width: 100%;
     height: 25vh;
-    margin-top: 80px;
     img{
         width: 100%;
         height: 25vh;

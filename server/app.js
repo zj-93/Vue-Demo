@@ -38,7 +38,6 @@ app.use(session({
   })
 }))
 
-
 function getClientIp(req) {
   return req.headers['x-forwarded-for'] ||
   req.connection.remoteAddress ||
@@ -48,6 +47,7 @@ function getClientIp(req) {
 
 //拦截所以api接口设置头部信息（不能放底部，why？）
 app.all('*', function(req, res, next) {
+  console.log(res)
   //跨域
   res.header('Access-Control-Allow-Origin', '*');
   res.header("Access-Control-Allow-Headers", "Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name");

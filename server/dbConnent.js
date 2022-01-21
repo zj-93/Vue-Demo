@@ -8,6 +8,7 @@ function _connent(collName, callback) {
   //连接数据库
   MongoClient.connect(url,{ useNewUrlParser: true,  useUnifiedTopology: true}, function (err, db) {
     if(err) {
+      console.log(111111111111111,err)
       return
     } else {
       const adminDb = db.db(dbName)
